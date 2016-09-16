@@ -1,6 +1,6 @@
 # Visual Studio 2015 user specific files
 .vs/
-*.vc.db
+*.VC.db
 
 # Compiled Object files
 *.slo
@@ -61,3 +61,8 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+#MarketPlace Content
+Content/StarterContent/
+Content/KiteDemo
+Content/GTFreeMaterials
