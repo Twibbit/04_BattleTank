@@ -15,6 +15,8 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 public:
 	ATank* GetControlledTank() const;
+	//Return an OUT parameter, True if hit landscape
+	bool GetSightRayHitLocation(FVector &HitLocation) const;
 
 	void Tick(float DeltaTime) override;
 
