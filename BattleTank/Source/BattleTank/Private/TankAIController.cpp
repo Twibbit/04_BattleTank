@@ -9,17 +9,23 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("AI Controller Begin Play"));
-	auto TempTank = GetControlledTank();
+	auto TempTank = GetPlayerTank();
 	if (TempTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController possessing: %s"), *(TempTank->GetName()));
+		UE_LOG(LogTemp, Warning, TEXT("AI:PlayerTank possessing: %s"), *(TempTank->GetName()));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AI: Get Controlled Tank Failed"));
+		UE_LOG(LogTemp, Warning, TEXT("AI: Get Player Tank Failed"));
 	}
 }
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
+}
+ATank* ATankAIController::GetPlayerTank() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (!PlayerPawn) { return nullptr; }
+	return Cast<ATank>(PlayerPawn);
 }
