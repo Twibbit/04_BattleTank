@@ -16,12 +16,14 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
 	
 	if (GetLookDirection(ScreenLocation,LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("LookDirection: %s"), *LookDirection.ToString());
-	}
-	//Line-Trace along that look direction, and see what we hit (up to a max range)
+		//Line-Trace along that look direction, and see what we hit (up to a max range)
+		//
+		return GetLookVectorHitLocation(LookDirection, HitLocation);
 
-	
-	return true;
+	} else
+	{
+		return false;
+	}
 }
 
 // Called every frame
@@ -74,4 +76,28 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 	FVector CameraWorldLocation;// to be discarded
 
 	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, LookDirection);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const
+{
+	FHitResult HitResult;
+	FVector CameraLocation;
+	FRotator CameraRotation;//throw away
+
+	GetPlayerViewPoint(CameraLocation, CameraRotation);
+	if(GetWorld()->LineTraceSingleByChannel(HitResult, CameraLocation, CameraLocation + LineTraceRange * LookDirection, ECC_Visibility)) 
+	{
+		HitLocation = HitResult.Location;
+		UE_LOG(LogTemp, Warning, TEXT("Hit Object: %s"), *HitResult.GetActor()->GetName());
+		return true;
+	}
+	else 
+	{
+		HitLocation = FVector(0);
+		return false;
+		
+	}
+
+	
+
 }
