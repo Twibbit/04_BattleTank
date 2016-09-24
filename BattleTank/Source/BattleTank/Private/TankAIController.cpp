@@ -19,6 +19,22 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AI: Get Player Tank Failed"));
 	}
 }
+// Called Every Frame
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	auto EnemyTank = GetPlayerTank();
+	auto MyTank = GetControlledTank();
+	if (EnemyTank && MyTank)
+	{
+		//TODO Move towards the player
+
+		//Aim at the player
+		MyTank->AimAt(EnemyTank->GetActorLocation());
+		//fire if ready
+	}
+
+}
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());

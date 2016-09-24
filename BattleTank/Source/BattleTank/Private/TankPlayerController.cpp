@@ -62,8 +62,8 @@ void ATankPlayerController::AimTowardsCrossair()
 	FVector HitLocation;//out parameter
 	if (GetSightRayHitLocation(HitLocation)) 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
 		
+		GetControlledTank() -> AimAt(HitLocation);
 		//if it hits the landscape
 			//TODO Tell controlled tank to aim at this point
 	}
