@@ -50,6 +50,8 @@ private:
 	//local reference to barrel
 	UTankBarrel* Barrel = nullptr;
 
+	float ReloadTimeInSeconds = 3.f;
+	double LastFireTime = 0;
 	
 	
 };
